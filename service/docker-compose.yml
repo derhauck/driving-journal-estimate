@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  app:
+    image: golang:1.21.5
+    networks:
+      - default
+    command: go run .
+    #env_file: .env
+    working_dir: /app
+    environment:
+      GOMODCACHE: /app/.pkg
+      GOCACHE: /app/.cache
+      ENVIRONMENT: DEV
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+networks:
+  default:
