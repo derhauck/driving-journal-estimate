@@ -1,7 +1,7 @@
 package day
 
 import (
-	"driving-journal-estimate/cmd/misc"
+	"driving-journal-estimate/cli/public/misc"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -40,8 +40,8 @@ func validLessonParameter(percent float32) bool {
 
 func (l *LessonTypeParameter) modify(percent float32) {
 	if validLessonParameter(percent) {
-		l.SetValue(percent)
 	}
+	l.SetValue(percent)
 }
 
 func NewLessonTypeCity(percent float32) *LessonTypeParameter {
@@ -76,6 +76,10 @@ func (l *LessonType) GetLand() *LessonTypeParameter    { return l.Land }
 func (l *LessonType) GetHighway() *LessonTypeParameter { return l.Highway }
 func (l *LessonType) combined() float32 {
 	return l.Land.GetValue() + l.Highway.GetValue() + l.City.GetValue()
+}
+
+func (l *LessonType) GetTotal() float32 {
+	return l.Land.GetTotal() + l.Highway.GetTotal() + l.City.GetTotal()
 }
 
 func (l *LessonType) sanityCheck() bool {
@@ -165,9 +169,17 @@ func NewRandomConfig() *Config {
 	if err != nil {
 		return nil
 	}
-	err = config.Lesson.ModHighway(rand.Float32())
-	if err != nil {
-		return nil
+
+	if ran := rand.Float32(); ran > 0.9 {
+		err := config.Lesson.ModHighway(rand.Float32() * 43)
+		if err != nil {
+			return nil
+		}
+	} else {
+		err := config.Lesson.ModHighway(rand.Float32())
+		if err != nil {
+			return nil
+		}
 	}
 	return config
 }
@@ -222,5 +234,6 @@ func (c *Config) Print() {
 	fmt.Printf("\tCity: %.0f%%", c.GetLesson().GetCity().GetTotal()*100)
 	fmt.Printf("\tLand: %.0f%%", c.GetLesson().GetLand().GetTotal()*100)
 	fmt.Printf("\tHighway: %.0f%%", c.GetLesson().GetHighway().GetTotal()*100)
+	fmt.Printf("\tTotal: %.0f%%", c.GetLesson().GetTotal()*100)
 	fmt.Println()
 }

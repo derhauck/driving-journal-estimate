@@ -1,7 +1,7 @@
 package calendar
 
 import (
-	"driving-journal-estimate/cmd/day"
+	"driving-journal-estimate/cli/public/day"
 	"fmt"
 )
 
@@ -25,26 +25,18 @@ func NewRandomMonth(count int) *Month {
 }
 
 func (m *Month) Calculate(total float32) error {
-	avg := (total * 0.7) / float32(len(m.Days))
 	var newTotal float32 = 0
+	var totalDailyMultiplier float32 = 0
 	for _, d := range m.Days {
-		err := d.Calculate(avg)
-		if err != nil {
-			return err
-		}
-		newTotal = newTotal + d.GetTotal()
-
+		totalDailyMultiplier += d.GetLesson().GetTotal()
 	}
 
-	totalDiff := total - newTotal
-	if totalDiff > 0 {
-		dailyDiff := totalDiff / float32(len(m.Days))
-		for _, d := range m.Days {
-			dailyTotal := d.GetTotal()
-			d.SetTotal(dailyTotal + dailyDiff)
-			newTotal = newTotal + dailyDiff
-		}
+	dailyDiff := total / totalDailyMultiplier
+	for _, d := range m.Days {
+		d.SetTotal(dailyDiff * d.GetLesson().GetTotal())
+		newTotal += dailyDiff * d.GetLesson().GetTotal()
 	}
+
 	m.Total = newTotal
 	return nil
 }

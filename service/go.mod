@@ -1,4 +1,4 @@
-module driving-journal-estimate
+module driving-journal-estimate/service
 
 go 1.21
 

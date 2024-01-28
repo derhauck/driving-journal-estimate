@@ -6,13 +6,13 @@ services:
       - default
     command: go run .
     #env_file: .env
-    working_dir: /app
+    working_dir: /app/service
     environment:
-      GOMODCACHE: /app/.pkg
-      GOCACHE: /app/.cache
+      GOMODCACHE: /app/service/.pkg
+      GOCACHE: /app/service/.cache
       ENVIRONMENT: DEV
     volumes:
-      - .:/app
+      - ..:/app
     ports:
       - "8080:8080"
 networks:
