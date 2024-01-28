@@ -14,10 +14,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: change Directory
-      run: ls -la && cd cli
     - uses: actions/checkout@v3
-
+    - name: change Directory
+      run: cd cli
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
