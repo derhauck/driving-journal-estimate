@@ -23,7 +23,12 @@ jobs:
         go-version: '1.21.5'
 
     - name: Test
-      run: cd cli && go test -v ./...
+      run: cd cli && go test -v ./... -json > testResults.json
     - name: Build
       run: cd cli && go build -v ./...
 
+    - name: Upload Go test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: Go-results
+        path: cli/testResults.json
