@@ -2,6 +2,17 @@ version: "3.7"
 services:
   cli:
     image: golang:1.21.5
+    command: go run . calendar random
+    working_dir: /app
+    environment:
+      GOMODCACHE: /app/.pkg
+      GOCACHE: /app/.cache
+      ENVIRONMENT: CLI
+    volumes:
+      - .:/app
+
+  service:
+    image: golang:1.21.5
     command: go run .
     #command: ["/go/bin/dlv", "debug", "--listen=:40000", "--headless=true", "--api-version=2", "--accept-multiclient"]
     #env_file: .env
@@ -13,5 +24,4 @@ services:
     volumes:
       - .:/app
     ports:
-      - "40000:40000"
-
+      - "8080:8080"

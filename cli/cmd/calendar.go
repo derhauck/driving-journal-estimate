@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"driving-journal-estimate/cli/cmd/calendar"
+	"driving-journal-estimate/cmd/calendar"
 	"github.com/spf13/cobra"
 )
 

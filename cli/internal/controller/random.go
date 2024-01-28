@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"driving-journal-estimate/cli/public/calendar"
+	"driving-journal-estimate/public/calendar"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -16,14 +16,24 @@ type RandomController struct {
 
 func (r *RandomController) Random(c *gin.Context) {
 	var calendarParam CalendarParam
-	if c.ShouldBind(&calendarParam) == nil {
+	if err := c.ShouldBind(&calendarParam); err == nil {
 		month := calendar.NewRandomMonth(calendarParam.Days)
-		month.Calculate(calendarParam.Total)
-		month.Print()
+		err = month.Calculate(calendarParam.Total)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello World!!!",
+			"message": month,
 		})
+	} else {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 }

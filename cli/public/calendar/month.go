@@ -1,7 +1,7 @@
 package calendar
 
 import (
-	"driving-journal-estimate/cli/public/day"
+	"driving-journal-estimate/public/day"
 	"fmt"
 )
 
@@ -41,9 +41,15 @@ func (m *Month) Calculate(total float32) error {
 	return nil
 }
 
-func (m *Month) Print() {
+func (m *Month) String() string {
+	var output string
 	for _, d := range m.Days {
-		d.Print()
+		output += fmt.Sprintf("%s\n", d.String())
 	}
-	fmt.Println(fmt.Sprintf("Total\tKM: %f", m.Total))
+	output += fmt.Sprintf("Total\tKM: %f\n", m.Total)
+	return output
+}
+
+func (m *Month) Print() {
+	fmt.Println(m)
 }

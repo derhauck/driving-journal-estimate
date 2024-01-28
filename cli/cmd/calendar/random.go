@@ -1,7 +1,7 @@
 package calendar
 
 import (
-	"driving-journal-estimate/cli/public/calendar"
+	"driving-journal-estimate/public/calendar"
 	"github.com/spf13/cobra"
 )
 

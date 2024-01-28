@@ -1,7 +1,7 @@
 package day
 
 import (
-	"driving-journal-estimate/cli/public/misc"
+	"driving-journal-estimate/public/misc"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -229,11 +229,16 @@ func (c *Config) Calculate(total float32) error {
 	return nil
 }
 
+func (c *Config) String() string {
+	output := fmt.Sprintf("Date: %s\t KM: %.2f", c.GetDate(), c.GetTotal())
+	output += fmt.Sprintf("\tCity: %.0f%%", c.GetLesson().GetCity().GetTotal()*100)
+	output += fmt.Sprintf("\tLand: %.0f%%", c.GetLesson().GetLand().GetTotal()*100)
+	output += fmt.Sprintf("\tHighway: %.0f%%", c.GetLesson().GetHighway().GetTotal()*100)
+	output += fmt.Sprintf("\tTotal: %.0f%%", c.GetLesson().GetTotal()*100)
+	return output
+}
+
 func (c *Config) Print() {
-	fmt.Printf("Date: %s\t KM: %.2f", c.GetDate(), c.GetTotal())
-	fmt.Printf("\tCity: %.0f%%", c.GetLesson().GetCity().GetTotal()*100)
-	fmt.Printf("\tLand: %.0f%%", c.GetLesson().GetLand().GetTotal()*100)
-	fmt.Printf("\tHighway: %.0f%%", c.GetLesson().GetHighway().GetTotal()*100)
-	fmt.Printf("\tTotal: %.0f%%", c.GetLesson().GetTotal()*100)
+	fmt.Print(c)
 	fmt.Println()
 }

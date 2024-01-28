@@ -1,12 +1,10 @@
 package main
 
 import (
-	"driving-journal-estimate/service/factory"
+	"driving-journal-estimate/factory"
 	"github.com/gin-gonic/gin"
 )
 
-var router = gin.Default()
-
-func init() {
+func initRoutes(router *gin.Engine) {
 	router.GET("/", factory.NewRandomController().Random)
 }

@@ -10,17 +10,10 @@
           </option>
           <option name="configurationFiles">
             <list>
-              <option value="$PROJECT_DIR$/service/docker-compose.yml" />
+              <option value="$PROJECT_DIR$/cli/docker-compose.yml" />
             </list>
           </option>
-          <option name="envs">
-            <map>
-              <entry key="ENVIRONMENT" value="DEV" />
-              <entry key="GOCACHE" value="/app/.cache" />
-              <entry key="GOMODCACHE" value="/app/.pkg" />
-            </map>
-          </option>
-          <option name="serviceName" value="app" />
+          <option name="serviceName" value="service" />
         </config>
         <ContributedStateBase type="GoLanguageRuntime">
           <config>
@@ -53,49 +46,6 @@
             <option name="goPath" value="/go" />
             <option name="goRoot" value="/usr/local/go/bin/go" />
             <option name="goVersion" value="go1.21.5 linux/amd64" />
-          </config>
-        </ContributedStateBase>
-      </target>
-      <target name="&lt;none&gt;:&lt;none&gt;" type="docker" uuid="bcc9601b-1007-4f9b-b71f-4ebf4d565d76">
-        <config>
-          <option name="targetPlatform">
-            <TargetPlatform />
-          </option>
-          <option name="buildImageConfig">
-            <BuildImageConfig>
-              <option name="builtImageTag" value="&lt;none&gt;:&lt;none&gt;" />
-              <option name="dockerFile" value="cli/Dockerfile" />
-            </BuildImageConfig>
-          </option>
-          <option name="containerConfig">
-            <ContainerConfig>
-              <option name="runCliOptions" value="--entrypoint= --rm --security-opt=&quot;apparmor=unconfined&quot; --cap-add=SYS_PTRACE -p 40000:40000" />
-            </ContainerConfig>
-          </option>
-        </config>
-        <ContributedStateBase type="GoLanguageRuntime">
-          <config>
-            <option name="compiledExecutablesVolume">
-              <VolumeState>
-                <option name="targetSpecificBits">
-                  <map>
-                    <entry key="mountAsVolume" value="false" />
-                  </map>
-                </option>
-              </VolumeState>
-            </option>
-            <option name="goPath" value="/go" />
-            <option name="goRoot" value="/usr/local/go/bin/go" />
-            <option name="goVersion" value="go1.21.5 linux/amd64" />
-            <option name="projectSourcesVolume">
-              <VolumeState>
-                <option name="targetSpecificBits">
-                  <map>
-                    <entry key="mountAsVolume" value="false" />
-                  </map>
-                </option>
-              </VolumeState>
-            </option>
           </config>
         </ContributedStateBase>
       </target>
