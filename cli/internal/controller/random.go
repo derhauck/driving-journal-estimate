@@ -11,14 +11,14 @@ type CalendarParam struct {
 	Total float32 `form:"total"`
 }
 type RandomController struct {
-	// TODO: Add your controller struct fields here
+	Month *calendar.Month
 }
 
 func (r *RandomController) Random(c *gin.Context) {
 	var calendarParam CalendarParam
 	if err := c.ShouldBind(&calendarParam); err == nil {
-		month := calendar.NewRandomMonth(calendarParam.Days)
-		err = month.Calculate(calendarParam.Total)
+		r.Month.RandomDays(calendarParam.Days)
+		err = r.Month.Calculate(calendarParam.Total)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
@@ -27,7 +27,7 @@ func (r *RandomController) Random(c *gin.Context) {
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"message": month,
+			"message": r.Month,
 		})
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{

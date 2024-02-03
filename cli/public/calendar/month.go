@@ -2,6 +2,7 @@ package calendar
 
 import (
 	"driving-journal-estimate/public/day"
+	"driving-journal-estimate/public/logger"
 	"fmt"
 )
 
@@ -10,8 +11,9 @@ type Day struct {
 }
 
 type Month struct {
-	Days  []*day.Config
-	Total float32
+	Days   []*day.Config
+	Total  float32
+	Logger logger.Inf
 }
 
 func NewMonth(days []*day.Config) *Month {
@@ -20,8 +22,8 @@ func NewMonth(days []*day.Config) *Month {
 	}
 }
 
-func NewRandomMonth(count int) *Month {
-	return &Month{Days: day.NewRandomDays(count)}
+func (m *Month) RandomDays(count int) {
+	m.Days = day.NewRandomDays(count)
 }
 
 func (m *Month) Calculate(total float32) error {
@@ -32,12 +34,30 @@ func (m *Month) Calculate(total float32) error {
 	}
 
 	dailyDiff := total / totalDailyMultiplier
+	m.Logger.Info(dailyDiff)
 	for _, d := range m.Days {
 		d.SetTotal(dailyDiff * d.GetLesson().GetTotal())
 		newTotal += dailyDiff * d.GetLesson().GetTotal()
 	}
 
 	m.Total = newTotal
+	return nil
+}
+
+func (m *Month) CalculateWithinRange(total float32, min float32, max float32) error {
+	err := m.Calculate(total)
+	if err != nil {
+		return err
+	}
+	for _, d := range m.Days {
+		if d.GetTotal() < min {
+			// Todo implement min
+		}
+		if d.GetTotal() > max {
+			// Todo implement max
+		}
+	}
+
 	return nil
 }
 
