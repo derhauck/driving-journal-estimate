@@ -27,16 +27,18 @@ jobs:
     - name: Test
       run: cd cli && go test -v ./... -json 2>&1 | go-junit-report -parser gojson > testResults.xml
 
-    - name: Upload Go test results
-      uses: actions/upload-artifact@v4
-      with:
-        name: Go-results
-        path: cli/testResults.xml
+#    - name: Upload Go test results
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: Go-results
+#        path: cli/testResults.xml
 
     - uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      name: Upload Report
       with:
         artifact: Go-results            # artifact name
         name: JEST Tests                  # Name of the check run which will be created
         path: '*.xml'                     # Path to test results (inside artifact .zip)
         reporter: jest-junit              # Format of test results
-        token: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: cli
