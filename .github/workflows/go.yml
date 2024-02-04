@@ -28,7 +28,7 @@ jobs:
       run: cd cli && go test -v ./... -json 2>&1 | go-junit-report -parser gojson > testResults.xml
 
     - name: Upload Go test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: Go-results
         path: cli/testResults.xml
