@@ -68,9 +68,9 @@ func (m *Month) String() string {
 func (m *Month) Print() {
 
 	for _, d := range m.Days {
-		m.Logger.Infof("%s", d.String())
+		m.Logger.Logf("%s", d.String())
 	}
-	m.Logger.Infof("Total\tKM: %f", m.Total)
+	m.Logger.Logf("Total\tKM: %f", m.Total)
 }
 
 func (m *Month) WriteOut() {
