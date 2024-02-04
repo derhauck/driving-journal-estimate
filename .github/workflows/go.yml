@@ -37,7 +37,7 @@ jobs:
     - name: Upload Go test results
       uses: actions/upload-artifact@v3.1.3
       with:
-        name: Go-results
+        name: test-results-unit-tests
         path: cli/testResults.xml
         if-no-files-found: error
 
@@ -45,7 +45,7 @@ jobs:
       if: success() || failure()    # run this step even if previous step failed
       name: Upload Report
       with:
-        artifact: Go-results            # artifact name
+        artifact: /test-results-(.*)/           # artifact name
         name: JEST Tests                  # Name of the check run which will be created
         path: '*.xml'                     # Path to test results (inside artifact .zip)
         reporter: java-junit              # Format of test results
