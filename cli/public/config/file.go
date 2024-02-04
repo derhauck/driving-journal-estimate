@@ -26,6 +26,7 @@ func (f *FileConfigStruct) ParseToDay(multiplier float32) *day.Config {
 type File struct {
 	Days     []*FileConfigStruct `yaml:"days"`
 	Baseline float32             `yaml:"baseline"`
+	Total    float32             `yaml:"total"`
 }
 
 func (f *File) DayConfig() []*day.Config {

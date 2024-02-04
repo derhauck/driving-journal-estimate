@@ -12,15 +12,15 @@ var ConfigCmd = &cobra.Command{
 	Short: "A brief description of your command",
 	Long:  `A longer description that spans multiple lines and likely contains examples`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		total, err := cmd.Flags().GetFloat32(totalFlag)
-		if err != nil {
-			return err
-		}
 		level, err := cmd.Flags().GetString(logLevelFlag)
 		if err != nil {
 			return err
 		}
 		path, err := cmd.Flags().GetString(fileFlag)
+		if err != nil {
+			return err
+		}
+		out, err := cmd.Flags().GetBool("out")
 		if err != nil {
 			return err
 		}
@@ -32,8 +32,11 @@ var ConfigCmd = &cobra.Command{
 
 		month := factory.NewMonth()
 		month.Days = config.DayConfig()
-		err = month.Calculate(total)
+		err = month.Calculate(config.Total)
 		month.Print()
+		if out {
+			month.WriteOut()
+		}
 		return err
 	},
 }
@@ -41,5 +44,4 @@ var ConfigCmd = &cobra.Command{
 func init() {
 	ConfigCmd.Flags().String(logLevelFlag, logger.DEFAULT.String(), "Log level => DEBUG,INFO,WARNING,ERROR")
 	ConfigCmd.Flags().String("file", "config.yaml", "config yaml with days")
-	ConfigCmd.Flags().Float32(totalFlag, 10000, "Total amount of kilometers driven")
 }

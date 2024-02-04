@@ -1,9 +1,12 @@
 package calendar
 
 import (
+	"bufio"
+	"bytes"
 	"driving-journal-estimate/public/day"
 	"driving-journal-estimate/public/logger"
 	"fmt"
+	"os"
 )
 
 type Day struct {
@@ -68,4 +71,29 @@ func (m *Month) Print() {
 		m.Logger.Infof("%s", d.String())
 	}
 	m.Logger.Infof("Total\tKM: %f", m.Total)
+}
+
+func (m *Month) WriteOut() {
+	path, err := os.Getwd()
+	file, err := os.Create(path + "/output.txt")
+	if err != nil {
+		m.Logger.Error(err)
+		return
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			panic(err)
+		}
+	}()
+	// make a write buffer
+	w := bufio.NewWriter(file)
+	for _, d := range m.Days {
+		output := fmt.Sprintf("%s\n", d.String())
+		if _, err := w.Write(bytes.NewBufferString(output).Bytes()); err != nil {
+			panic(err)
+		}
+	}
+	if err = w.Flush(); err != nil {
+		panic(err)
+	}
 }

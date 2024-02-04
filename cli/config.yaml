@@ -1,11 +1,14 @@
 ---
-baseline: 3
+baseline: 2
+total: 500
 days:
   - date: '10-02-2023'
     count: 10
   - date: '12-02-2023'
     count: 3
   - date: '14-02-2023'
+    count: 1
+  - date: '15-02-2023'
     count: 1
   - date: '18-02-2023'
     count: 8

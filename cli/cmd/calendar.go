@@ -14,4 +14,5 @@ var CalendarCmd = &cobra.Command{
 func init() {
 	CalendarCmd.AddCommand(calendar.RandomCmd)
 	CalendarCmd.AddCommand(calendar.ConfigCmd)
+	CalendarCmd.PersistentFlags().Bool("out", false, "Output to file")
 }

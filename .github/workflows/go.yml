@@ -23,15 +23,22 @@ jobs:
         go-version: '1.21.5'
 
     - name: Build
-      run: cd cli && go install github.com/jstemmer/go-junit-report/v2@latest && go build -v ./...
+      run: cd cli && go build -v ./...
+    - name: Upload Bin
+      uses: actions/upload-artifact@v4
+      with:
+        name: Go-Bin
+        path: cli/driving-journal-estimate
+
     - name: Test
-      run: cd cli && go test -v ./... -json 2>&1 | go-junit-report -parser gojson > testResults.xml
+      run: cd cli && && go install github.com/jstemmer/go-junit-report/v2@latest  go test -v ./... -json 2>&1 | go-junit-report -parser gojson > testResults.xml
 
     - name: Upload Go test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.3
       with:
         name: Go-results
         path: cli/testResults.xml
+        if-no-files-found: error
 
     - uses: dorny/test-reporter@v1.8.0
       if: success() || failure()    # run this step even if previous step failed
@@ -39,6 +46,6 @@ jobs:
       with:
         artifact: Go-results            # artifact name
         name: JEST Tests                  # Name of the check run which will be created
-        path: '*'                     # Path to test results (inside artifact .zip)
+        path: '*.xml'                     # Path to test results (inside artifact .zip)
         reporter: jest-junit              # Format of test results
         working-directory: cli

@@ -23,6 +23,11 @@ func LoadConfigFromFile(path string) *config.File {
 	if file.Baseline == 0.0 {
 		file.Baseline = .5
 	}
+
+	if file.Total == 0.0 {
+		file.Total = 10000
+	}
+
 	GetLogger().Logf("Baseline: %f", file.Baseline)
 	return &file
 
