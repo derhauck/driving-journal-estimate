@@ -35,7 +35,7 @@ jobs:
       run: cd cli && go install github.com/jstemmer/go-junit-report/v2@latest && go test -v ./... -json 2>&1 | go-junit-report -parser gojson > testResults.xml
 
     - name: Upload Go test results
-      uses: actions/upload-artifact@v3.1.3
+      uses: actions/upload-artifact@v3
       with:
         name: test-results-unit-tests
         path: cli/testResults.xml
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-    - uses: dorny/test-reporter@v1.8.0
+    - uses: dorny/test-reporter@v1
       if: success() || failure()    # run this step even if previous step failed
       name: Upload Report
       with:
