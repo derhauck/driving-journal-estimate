@@ -16,12 +16,6 @@ type Month struct {
 	Logger logger.Inf
 }
 
-func NewMonth(days []*day.Config) *Month {
-	return &Month{
-		Days: days,
-	}
-}
-
 func (m *Month) RandomDays(count int) {
 	m.Days = day.NewRandomDays(count)
 }
@@ -32,9 +26,7 @@ func (m *Month) Calculate(total float32) error {
 	for _, d := range m.Days {
 		totalDailyMultiplier += d.GetLesson().GetTotal()
 	}
-
 	dailyDiff := total / totalDailyMultiplier
-	m.Logger.Info(dailyDiff)
 	for _, d := range m.Days {
 		d.SetTotal(dailyDiff * d.GetLesson().GetTotal())
 		newTotal += dailyDiff * d.GetLesson().GetTotal()
@@ -71,5 +63,9 @@ func (m *Month) String() string {
 }
 
 func (m *Month) Print() {
-	fmt.Println(m)
+
+	for _, d := range m.Days {
+		m.Logger.Infof("%s", d.String())
+	}
+	m.Logger.Infof("Total\tKM: %f", m.Total)
 }

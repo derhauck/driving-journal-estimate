@@ -22,13 +22,20 @@ jobs:
       with:
         go-version: '1.21.5'
 
-    - name: Test
-      run: cd cli && go test -v ./... -json > testResults.json
     - name: Build
-      run: cd cli && go build -v ./...
+      run: cd cli && go install github.com/jstemmer/go-junit-report/v2@latest && go build -v ./...
+    - name: Test
+      run: cd cli && go test -v ./... -json 2>&1 | go-junit-report -parser gojson > testResults.xml
 
     - name: Upload Go test results
       uses: actions/upload-artifact@v4
       with:
         name: Go-results
         path: cli/testResults.json
+
+    - uses: dorny/test-reporter@v1
+      with:
+        artifact: Go-results            # artifact name
+        name: JEST Tests                  # Name of the check run which will be created
+        path: 'cli/*.xml'                     # Path to test results (inside artifact .zip)
+        reporter: jest-junit              # Format of test results

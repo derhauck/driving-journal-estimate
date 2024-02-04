@@ -24,13 +24,14 @@ func (f *FileConfigStruct) ParseToDay(multiplier float32) *day.Config {
 }
 
 type File struct {
-	Days []FileConfigStruct `yaml:"days"`
+	Days     []*FileConfigStruct `yaml:"days"`
+	Baseline float32             `yaml:"baseline"`
 }
 
 func (f *File) DayConfig() []*day.Config {
 	var result = make([]*day.Config, 0)
 	for _, config := range f.Days {
-		result = append(result, config.ParseToDayRandom())
+		result = append(result, config.ParseToDay(f.Baseline+rand.Float32()))
 	}
 	return result
 }

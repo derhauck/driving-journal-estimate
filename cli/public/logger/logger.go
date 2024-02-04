@@ -12,6 +12,7 @@ var levels = map[Level]string{
 	INFO:    "INFO",
 	WARNING: "WARNING",
 	ERROR:   "ERROR",
+	LOG:     "LOG",
 }
 
 func (l Level) String() string {
@@ -32,6 +33,7 @@ const (
 	INFO
 	WARNING
 	ERROR
+	LOG
 	DEFAULT = WARNING
 )
 
@@ -46,6 +48,14 @@ func (l *logger) Info(v any) {
 
 func (l *logger) Infof(format string, v ...any) {
 	l.bootstrapLogging(INFO, fmt.Sprintf(format, v...))
+}
+
+func (l *logger) Log(v any) {
+	l.bootstrapLogging(LOG, v)
+}
+
+func (l *logger) Logf(format string, v ...any) {
+	l.bootstrapLogging(LOG, fmt.Sprintf(format, v...))
 }
 
 func (l *logger) Warning(v any) {
@@ -74,11 +84,17 @@ func (l *logger) bootstrapLogging(level Level, v any) bool {
 	return false
 }
 
+func (l *logger) GetLevel() Level {
+	return l.level
+}
+
 func (l *logger) SetLevel(level Level) {
 	l.level = level
 }
 
 type Inf interface {
+	Log(v any)
+	Logf(format string, v ...any)
 	Info(v any)
 	Infof(format string, v ...any)
 	Warning(v any)
@@ -86,6 +102,7 @@ type Inf interface {
 	Error(v any)
 	Errorf(format string, v ...any)
 	SetLevel(level Level)
+	GetLevel() Level
 }
 
 func New(level Level) Inf {
