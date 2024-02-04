@@ -33,7 +33,7 @@ jobs:
         name: Go-results
         path: cli/testResults.xml
 
-    - uses: dorny/test-reporter@v1
+    - uses: dorny/test-reporter@v1.8.0
       if: success() || failure()    # run this step even if previous step failed
       name: Upload Report
       with:
