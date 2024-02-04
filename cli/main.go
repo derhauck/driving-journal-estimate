@@ -8,15 +8,15 @@ import (
 )
 
 func main() {
-	if env, _ := os.LookupEnv("ENVIRONMENT"); env == "CLI" {
-		cmd.Execute()
-		return
-	} else {
+	if env, _ := os.LookupEnv("ENVIRONMENT"); env == "BACKEND" {
 		router := gin.Default()
 		initRoutes(router)
 		err := router.Run(":8080")
 		if err != nil {
 			_ = fmt.Sprintf(err.Error())
 		}
+		return
+	} else {
+		cmd.Execute()
 	}
 }

@@ -7,7 +7,7 @@ services:
     environment:
       GOMODCACHE: /app/.pkg
       GOCACHE: /app/.cache
-      ENVIRONMENT: CLI
+      ENVIRONMENT: SS
     volumes:
       - .:/app
 
@@ -20,7 +20,7 @@ services:
     environment:
       GOMODCACHE: /app/.pkg
       GOCACHE: /app/.cache
-      ENVIRONMENT: DEV
+      ENVIRONMENT: BACKEND
     volumes:
       - .:/app
     ports:
