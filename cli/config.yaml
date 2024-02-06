@@ -1,14 +1,42 @@
 ---
-baseline: 2
-total: 500
+baseline: 1.1
+total: 5000
 days:
   - date: '10-02-2023'
-    count: 10
+    count: 1
   - date: '12-02-2023'
-    count: 3
+    count: 2
   - date: '14-02-2023'
-    count: 1
+    count: 3
   - date: '15-02-2023'
-    count: 1
+    count: 4
+  - date: '18-02-2023'
+    count: 5
+  - date: '18-02-2023'
+    count: 6
+  - date: '18-02-2023'
+    count: 7
   - date: '18-02-2023'
     count: 8
+  - date: '18-02-2023'
+    count: 9
+  - date: '18-02-2023'
+    count: 11
+  - date: '18-02-2023'
+    count: 12
+  - date: '18-02-2023'
+    count: 13
+  - date: '18-02-2023'
+    count: 14
+  - date: '18-02-2023'
+    count: 15
+  - date: '18-02-2023'
+    count: 16
+  - date: '18-02-2023'
+    count: 17
+  - date: '18-02-2023'
+    count: 18
+  - date: '18-02-2023'
+    count: 19
+  - date: '18-02-2023'
+    count: 21
