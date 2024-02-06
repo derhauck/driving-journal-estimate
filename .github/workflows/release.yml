@@ -37,7 +37,7 @@ jobs:
       - name: Zip Artifact Mac
         run: mv cli/driving-journal-estimate dje && chmod +x dje && tar -czvf mac-bin.tar.gz dje
       - name: Upload Release Asset Linux
-        id: upload-release-asset
+        id: upload-release-asset-linux
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
           asset_name: linux-bin.tar.gz
           asset_content_type: application/x-tar
       - name: Upload Release Asset Mac
-        id: upload-release-asset
+        id: upload-release-asset-mac
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
