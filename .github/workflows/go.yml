@@ -34,6 +34,6 @@ jobs:
       if: success() || failure()    # run this step even if previous step failed
       name: Upload Report
       with:
-        name: test-results-unit-tests               # Name of the check run which will be created
+        name: Unit Test Report              # Name of the check run which will be created
         path: 'cli/*.xml'                     # Path to test results (inside artifact .zip)
-        reporter: java-junit              # Format of test results
+        reporter: jest-junit              # Format of test results
