@@ -1,5 +1,4 @@
-# Driving Journal Estimator 
-## v0.0.3
+# Driving Journal Estimator
 
 
 ----
