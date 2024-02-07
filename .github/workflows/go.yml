@@ -40,6 +40,6 @@ jobs:
       name: Upload Report
       with:
         artifact: test-results-unit-tests          # artifact name
-        name: JEST Tests                  # Name of the check run which will be created
-        path: '**/*.xml'                     # Path to test results (inside artifact .zip)
-        reporter: jest-junit              # Format of test results
+        name: test-results-unit-tests               # Name of the check run which will be created
+        path: '*.xml'                     # Path to test results (inside artifact .zip)
+        reporter: java-junit              # Format of test results
