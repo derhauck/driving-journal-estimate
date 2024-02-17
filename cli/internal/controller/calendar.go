@@ -10,11 +10,11 @@ type CalendarParam struct {
 	Days  int     `form:"days"`
 	Total float32 `form:"total"`
 }
-type RandomController struct {
+type CalendarController struct {
 	Month *calendar.Month
 }
 
-func (r *RandomController) Random(c *gin.Context) {
+func (r *CalendarController) Random(c *gin.Context) {
 	var calendarParam CalendarParam
 	if err := c.ShouldBind(&calendarParam); err == nil {
 		r.Month.RandomDays(calendarParam.Days)
