@@ -7,20 +7,18 @@ services:
     environment:
       GOMODCACHE: /app/.pkg
       GOCACHE: /app/.cache
-      ENVIRONMENT: SS
     volumes:
       - .:/app
 
   service:
     image: golang:1.21.5
-    command: go run .
+    command: go run . calendar server
     #command: ["/go/bin/dlv", "debug", "--listen=:40000", "--headless=true", "--api-version=2", "--accept-multiclient"]
     #env_file: .env
     working_dir: /app
     environment:
       GOMODCACHE: /app/.pkg
       GOCACHE: /app/.cache
-      ENVIRONMENT: BACKEND
     volumes:
       - .:/app
     ports:

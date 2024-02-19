@@ -1,7 +1,6 @@
 package day
 
 import (
-	"driving-journal-estimate/public/logger"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -58,7 +57,6 @@ type Config struct {
 	Date   string
 	Lesson *LessonType
 	Total  float32
-	Logger logger.Inf
 }
 
 func NewConfig() *Config {

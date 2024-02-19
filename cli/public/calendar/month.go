@@ -23,7 +23,7 @@ func (m *Month) RandomDays(count int) {
 	m.Days = day.NewRandomDays(count)
 }
 
-func (m *Month) Calculate(total float32) error {
+func (m *Month) Calculate(total float32) {
 	var newTotal float32 = 0
 	var totalDailyMultiplier float32 = 0
 	for _, d := range m.Days {
@@ -36,14 +36,10 @@ func (m *Month) Calculate(total float32) error {
 	}
 
 	m.Total = newTotal
-	return nil
 }
 
-func (m *Month) CalculateWithinRange(total float32, min float32, max float32) error {
-	err := m.Calculate(total)
-	if err != nil {
-		return err
-	}
+func (m *Month) CalculateWithinRange(total float32, min float32, max float32) {
+	m.Calculate(total)
 	for _, d := range m.Days {
 		if d.GetTotal() < min {
 			// Todo implement min
@@ -53,7 +49,6 @@ func (m *Month) CalculateWithinRange(total float32, min float32, max float32) er
 		}
 	}
 
-	return nil
 }
 
 func (m *Month) String() string {

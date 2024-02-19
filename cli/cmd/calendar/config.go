@@ -32,7 +32,7 @@ var ConfigCmd = &cobra.Command{
 
 		month := factory.NewMonth()
 		month.Days = config.DayConfig()
-		err = month.Calculate(config.Total)
+		month.Calculate(config.Total)
 		month.Print()
 		if out {
 			month.WriteOut()

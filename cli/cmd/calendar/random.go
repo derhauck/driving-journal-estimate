@@ -33,7 +33,7 @@ var RandomCmd = &cobra.Command{
 		}
 
 		month := factory.NewRandomMonth(days)
-		err = month.Calculate(total)
+		month.Calculate(total)
 		month.Print()
 		return err
 	},

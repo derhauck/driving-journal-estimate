@@ -6,8 +6,8 @@ import (
 )
 
 type FileConfigStruct struct {
-	Date  string `yaml:"date"`
-	Count int    `yaml:"count"`
+	Date  string `yaml:"date" form:"date" json:"date"`
+	Count int    `yaml:"count" form:"count" json:"count"`
 }
 
 func (f *FileConfigStruct) ParseToDayRandom() *day.Config {
@@ -24,9 +24,9 @@ func (f *FileConfigStruct) ParseToDay(multiplier float32) *day.Config {
 }
 
 type File struct {
-	Days     []*FileConfigStruct `yaml:"days"`
-	Baseline float32             `yaml:"baseline"`
-	Total    float32             `yaml:"total"`
+	Days     []*FileConfigStruct `yaml:"days" form:"days" json:"days"`
+	Baseline float32             `yaml:"baseline" form:"baseline" json:"baseline"`
+	Total    float32             `yaml:"total" form:"total" json:"total"`
 }
 
 func (f *File) DayConfig() []*day.Config {
