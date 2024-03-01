@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
-	"time"
 )
 
 type LessonType struct {
@@ -47,34 +46,15 @@ func NewLessonType() *LessonType {
 
 type LessonTypeConfigurationParameter func(l *LessonType)
 
-func NewLessonTypeMultiplierParameter(percent float32) LessonTypeConfigurationParameter {
-	return func(l *LessonType) {
-		l.Multiplier = percent
-	}
-}
-
 type Config struct {
 	Date   string
 	Lesson *LessonType
 	Total  float32
 }
 
-func NewConfig() *Config {
-	return &Config{
-		Date:   NowDateString(),
-		Lesson: NewLessonType(),
-		Total:  0,
-	}
-}
-
-func NowDateString() string {
-	date := time.Now()
-	return fmt.Sprintf("%d/%d/%d", date.Day(), date.Month(), date.Year())
-}
-
-func NewRandomConfig() *Config {
+func NewRandomConfig(date string) *Config {
 	config := &Config{
-		Date:   NowDateString(),
+		Date:   date,
 		Lesson: NewLessonType(),
 		Total:  0,
 	}
@@ -89,7 +69,7 @@ func NewRandomConfig() *Config {
 func NewRandomDays(count int) []*Config {
 	days := make([]*Config, count)
 	for i := 0; i < count; i++ {
-		days[i] = NewRandomConfig()
+		days[i] = NewRandomConfig(fmt.Sprintf("Day-%d", i+1))
 	}
 	return days
 }
