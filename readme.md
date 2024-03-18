@@ -1,27 +1,39 @@
 # Driving Journal Estimator
-Tool to estimate the daily amount of kilometers you drove given a set of days and the amount of kilometers you drove in 
-total. Very useful tool if you have to journal and missed some days but still wan to have an estimate of how much you drove
-daily in a given time interval.
 
-----
-# CLI
-## Completely Random
+The Driving Journal Estimator is a tool designed to estimate your daily kilometers driven, ideal for backfilling missed entries in a driving journal. 
+
+## Features
+
+- **Random Distribution**: Distributes total kilometers across days randomly.
+- **Configurable Estimation**: Allows more precise control based on your preferences.
+
+## Installation
+The Driving Journal Estimator is available for Linux and macOS. Install it using our convenient install script:
+
+```shell
+curl -sSL https://raw.githubusercontent.com/DERHauck/driving-journal-estimate/main/install.sh | sudo bash
+```
+This script automatically detects your OS, downloads the latest dje binary, and sets it up for immediate use.
+
+
+## CLI Usage
+
+### Random Distribution
+Generates estimates randomly. Useful for a quick approximation without specific requirements.
+
 ```shell
 dje calendar random
-# Flags
-# --out | will write the output to file 'output.txt'
-# --total float32 | total KM to distribute (default:10000)
-# --days int | days to distribute the total KM to (default:20)
+--total float32: Total kilometers to distribute (default: 10000).
+--days int: Number of days to spread the total kilometers over (default: 20).
+--out: Optional. Writes output to output.txt (default: prints to console).
 ```
-example command: `dje calendar random --total 100.00 --days 3`
+### Configuration-based Distribution
+Generates estimates based on a detailed YAML configuration for more accurate distribution reflecting actual driving patterns.
 
-
-## From Config
 ```shell
 dje calendar config
-# Flags
-# --out | will write the output to file 'output.txt'
-# --file string | config yaml to read (default: config.yaml)
+--file string: The YAML configuration file specifying the distribution logic (default: "config.yaml").
+--out: Optional. Writes output to output.txt (default: prints to console).
 ```
 #### Type - config.yaml
 ```Yaml
