@@ -3,8 +3,8 @@ package calendar
 import (
 	"bufio"
 	"bytes"
-	"driving-journal-estimate/public/day"
-	"driving-journal-estimate/public/logger"
+	"derhauck/driving-journal-estimate/public/day"
+	"derhauck/driving-journal-estimate/public/logger"
 	"fmt"
 	"os"
 )

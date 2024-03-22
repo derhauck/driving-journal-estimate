@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"driving-journal-estimate/public/calendar"
-	"driving-journal-estimate/public/config"
-	"driving-journal-estimate/public/logger"
-	"github.com/gin-gonic/gin"
+	"derhauck/driving-journal-estimate/public/calendar"
+	"derhauck/driving-journal-estimate/public/config"
+	"derhauck/driving-journal-estimate/public/logger"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type CalendarRandomParam struct {

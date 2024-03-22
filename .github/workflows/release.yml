@@ -28,6 +28,12 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: '1.21.5'
+      - name: Add version
+        env:
+          VERSION: ${{ github.ref }}
+        run: |
+          envsubst < cli/cmd/root.go > cli/cmd/root2.go
+          rm cli/cmd/root.go
       - name: Build Linux Binary
         run: cd cli && CGO_ENABLED=0 GOOS=linux go build -o . -v ./...
       - name: Zip Artifact Linux

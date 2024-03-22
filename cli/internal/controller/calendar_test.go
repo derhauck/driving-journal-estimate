@@ -1,16 +1,17 @@
 package controller
 
 import (
-	"driving-journal-estimate/public/calendar"
-	"driving-journal-estimate/public/day"
-	"driving-journal-estimate/public/logger"
-	"github.com/gin-gonic/gin"
+	"derhauck/driving-journal-estimate/public/calendar"
+	"derhauck/driving-journal-estimate/public/day"
+	"derhauck/driving-journal-estimate/public/logger"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
+
+	"github.com/gin-gonic/gin"
 )
 
 func NewMonth(total float32) *calendar.Month {

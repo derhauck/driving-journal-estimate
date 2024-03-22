@@ -1,7 +1,8 @@
 package calendar
 
 import (
-	"driving-journal-estimate/factory"
+	"derhauck/driving-journal-estimate/factory"
+
 	"github.com/gin-gonic/gin"
 )
 

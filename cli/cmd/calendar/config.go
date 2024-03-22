@@ -1,16 +1,17 @@
 package calendar
 
 import (
-	"driving-journal-estimate/factory"
-	"driving-journal-estimate/public/logger"
+	"derhauck/driving-journal-estimate/factory"
+	"derhauck/driving-journal-estimate/public/logger"
+
 	"github.com/spf13/cobra"
 )
 
 var fileFlag = "file"
 var ConfigCmd = &cobra.Command{
 	Use:   "config",
-	Short: "A brief description of your command",
-	Long:  `A longer description that spans multiple lines and likely contains examples`,
+	Short: "Generates estimates based on config file.",
+	Long:  `Generates estimates based on a detailed YAML configuration for more accurate distribution reflecting actual driving patterns.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		level, err := cmd.Flags().GetString(logLevelFlag)
 		if err != nil {

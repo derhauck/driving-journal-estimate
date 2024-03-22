@@ -1,9 +1,10 @@
 package factory
 
 import (
-	"driving-journal-estimate/public/config"
-	"gopkg.in/yaml.v3"
+	"derhauck/driving-journal-estimate/public/config"
 	"os"
+
+	"gopkg.in/yaml.v3"
 )
 
 func LoadConfigFromFile(path string) *config.File {

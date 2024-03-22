@@ -1,7 +1,7 @@
 package main
 
 import (
-	"driving-journal-estimate/cmd"
+	"derhauck/driving-journal-estimate/cmd"
 )
 
 func main() {

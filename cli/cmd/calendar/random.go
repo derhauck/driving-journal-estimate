@@ -1,8 +1,9 @@
 package calendar
 
 import (
-	"driving-journal-estimate/factory"
-	"driving-journal-estimate/public/logger"
+	"derhauck/driving-journal-estimate/factory"
+	"derhauck/driving-journal-estimate/public/logger"
+
 	"github.com/spf13/cobra"
 )
 
@@ -13,8 +14,8 @@ var logLevelFlag = "log"
 
 var RandomCmd = &cobra.Command{
 	Use:   "random",
-	Short: "A brief description of your command",
-	Long:  `A longer description that spans multiple lines and likely contains examples`,
+	Short: "Generates estimates randomly.",
+	Long:  `Generates estimates randomly. Useful for a quick approximation without specific requirements.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		total, err := cmd.Flags().GetFloat32(totalFlag)
 		if err != nil {

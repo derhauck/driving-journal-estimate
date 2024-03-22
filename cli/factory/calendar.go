@@ -1,8 +1,8 @@
 package factory
 
 import (
-	"driving-journal-estimate/public/calendar"
-	"driving-journal-estimate/public/day"
+	"derhauck/driving-journal-estimate/public/calendar"
+	"derhauck/driving-journal-estimate/public/day"
 )
 
 func NewRandomMonth(count int) *calendar.Month {

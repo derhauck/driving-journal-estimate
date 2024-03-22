@@ -1,6 +1,6 @@
 package factory
 
-import "driving-journal-estimate/internal/controller"
+import "derhauck/driving-journal-estimate/internal/controller"
 
 func NewRandomController() *controller.CalendarController {
 	return &controller.CalendarController{

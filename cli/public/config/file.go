@@ -1,7 +1,7 @@
 package config
 
 import (
-	"driving-journal-estimate/public/day"
+	"derhauck/driving-journal-estimate/public/day"
 	"math/rand"
 )
 

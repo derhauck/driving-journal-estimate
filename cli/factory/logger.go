@@ -1,7 +1,7 @@
 package factory
 
 import (
-	"driving-journal-estimate/public/logger"
+	"derhauck/driving-journal-estimate/public/logger"
 )
 
 var staticLogger logger.Inf

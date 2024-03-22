@@ -2,12 +2,13 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Short: "Driving Journal Estimate",
+	Short: "Driving Journal Estimate ${VERSION}",
 }
 
 func Execute() {
