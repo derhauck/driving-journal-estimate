@@ -14,8 +14,8 @@ type Day struct {
 }
 
 type Month struct {
-	Days   []*day.Config
-	Total  float32
+	Days   []*day.Config `json:"days"`
+	Total  float32       `json:"total"`
 	Logger logger.Inf
 }
 
@@ -68,9 +68,9 @@ func (m *Month) Print() {
 	m.Logger.Logf("Total\tKM: %f", m.Total)
 }
 
-func (m *Month) WriteOut() {
+func (m *Month) WriteOut(fileName string) {
 	path, err := os.Getwd()
-	file, err := os.Create(path + "/output.txt")
+	file, err := os.Create(path + "/" + fileName)
 	if err != nil {
 		m.Logger.Error(err)
 		return

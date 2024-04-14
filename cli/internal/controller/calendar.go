@@ -23,15 +23,23 @@ type CalendarController struct {
 	Logger logger.Inf
 }
 
+type CalendarErrorResponse struct {
+	Error string `json:"error"`
+}
+
+// @Title Random
+// @Description Get random values
+// @Param  total  query  int  true  "total KM to distribute" "100"
+// @Success  200  object  calendar.Month  "Month JSON"
+// @Failure  500  object  CalendarErrorResponse  "error JSON"
+// @Route /random [get]
 func (r *CalendarController) Random(c *gin.Context) {
 	var calendarParam CalendarRandomParam
 	if err := c.ShouldBind(&calendarParam); err == nil {
 		r.Month.RandomDays(calendarParam.Days)
 		r.Month.Calculate(calendarParam.Total)
 
-		c.JSON(http.StatusOK, gin.H{
-			"message": r.Month,
-		})
+		c.JSON(http.StatusOK, r.Month)
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
