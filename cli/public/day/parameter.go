@@ -66,9 +66,9 @@ func NewRandomConfig(date string) *Config {
 	return config
 }
 
-func NewRandomDays(count int) []*Config {
+func NewRandomDays(count uint) []*Config {
 	days := make([]*Config, count)
-	for i := 0; i < count; i++ {
+	for i := 0; i < int(count); i++ {
 		days[i] = NewRandomConfig(fmt.Sprintf("Day-%d", i+1))
 	}
 	return days

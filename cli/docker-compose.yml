@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   cli:
-    image: golang:1.21.5
+    image: golang:1.22
     command: go run . calendar config --log DEBUG --out
     working_dir: /app
     environment:
@@ -11,7 +11,7 @@ services:
       - .:/app
 
   service:
-    image: golang:1.21.5
+    image: golang:1.22
     command: go run . calendar server
     #command: ["/go/bin/dlv", "debug", "--listen=:40000", "--headless=true", "--api-version=2", "--accept-multiclient"]
     #env_file: .env

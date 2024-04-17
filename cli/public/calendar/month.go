@@ -19,7 +19,7 @@ type Month struct {
 	Logger logger.Inf
 }
 
-func (m *Month) RandomDays(count int) {
+func (m *Month) RandomDays(count uint) {
 	m.Days = day.NewRandomDays(count)
 }
 

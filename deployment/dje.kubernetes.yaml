@@ -20,14 +20,14 @@ spec:
           readinessProbe:
             successThreshold: 1
             initialDelaySeconds: 1
-            periodSeconds: 1
+            periodSeconds: 3
             httpGet:
               port: 8080
               path: /health
           livenessProbe:
             successThreshold: 1
             initialDelaySeconds: 1
-            periodSeconds: 1
+            periodSeconds: 3
             httpGet:
               port: 8080
               path: /health

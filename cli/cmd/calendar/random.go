@@ -21,7 +21,7 @@ var RandomCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		days, err := cmd.Flags().GetInt(daysFlag)
+		days, err := cmd.Flags().GetUint(daysFlag)
 		if err != nil {
 			return err
 		}

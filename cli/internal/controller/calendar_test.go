@@ -77,7 +77,7 @@ func TestRandomController_Random(t *testing.T) {
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
+				message: `{"days":[{"`,
 				code:    http.StatusOK,
 			},
 		},
@@ -146,7 +146,7 @@ func TestCalendarController_Configuration(t *testing.T) {
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
+				message: `{"message":{"days":[{"`,
 				code:    http.StatusOK,
 			},
 		},
@@ -165,7 +165,7 @@ func TestCalendarController_Configuration(t *testing.T) {
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
+				message: `{"message":{"days":[{"`,
 				code:    http.StatusOK,
 			},
 		},
@@ -184,7 +184,7 @@ func TestCalendarController_Configuration(t *testing.T) {
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
+				message: `{"message":{"days":[{"`,
 				code:    http.StatusOK,
 			},
 		},
