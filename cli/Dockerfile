@@ -6,7 +6,6 @@ COPY factory/ /app/factory
 COPY internal/ /app/internal
 COPY public/ /app/public
 COPY main.go go.mod go.sum /app/
-COPY oas.yml /app/public/openapi.yml
 #COPY . /app/
 ENV GOMODCACHE /app/.pkg
 ENV GOCACHE /app/.cache
