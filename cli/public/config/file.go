@@ -11,9 +11,9 @@ type FileConfigStruct struct {
 }
 
 func (f *FileConfigStruct) ParseToDayRandom() *day.Config {
-	return f.ParseToDay(rand.Float32())
+	return f.ParseToDay(rand.Float64())
 }
-func (f *FileConfigStruct) ParseToDay(multiplier float32) *day.Config {
+func (f *FileConfigStruct) ParseToDay(multiplier float64) *day.Config {
 	return &day.Config{
 		Date: f.Date,
 		Lesson: &day.LessonType{
@@ -24,15 +24,15 @@ func (f *FileConfigStruct) ParseToDay(multiplier float32) *day.Config {
 }
 
 type File struct {
-	Days     []*FileConfigStruct `yaml:"days" form:"days" json:"days"`
-	Baseline float32             `yaml:"baseline" form:"baseline" json:"baseline"`
-	Total    float32             `yaml:"total" form:"total" json:"total"`
+	Days     []*FileConfigStruct `yaml:"days" form:"days" json:"days,omitempty"`
+	Baseline float64             `yaml:"baseline" form:"baseline" json:"baseline"`
+	Total    float64             `yaml:"total" form:"total" json:"total"`
 }
 
 func (f *File) DayConfig() []*day.Config {
 	var result = make([]*day.Config, 0)
 	for _, config := range f.Days {
-		result = append(result, config.ParseToDay(f.Baseline+rand.Float32()))
+		result = append(result, config.ParseToDay(f.Baseline+rand.Float64()))
 	}
 	return result
 }

@@ -5,7 +5,7 @@ import (
 	"derhauck/driving-journal-estimate/public/day"
 )
 
-func NewRandomMonth(count int) *calendar.Month {
+func NewRandomMonth(count uint) *calendar.Month {
 	return &calendar.Month{
 		Days:   day.NewRandomDays(count),
 		Logger: GetLogger(),

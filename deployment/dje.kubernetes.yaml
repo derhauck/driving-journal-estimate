@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dje-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        kubernetes.io/app: driving-journal-estimate-server
+      name: driving-journal-estimate
+    spec:
+      containers:
+        - name: server
+          image: ghcr.io/derhauck/driving-journal-estimate:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: web
+          readinessProbe:
+            successThreshold: 1
+            initialDelaySeconds: 1
+            periodSeconds: 3
+            httpGet:
+              port: 8080
+              path: /health
+          livenessProbe:
+            successThreshold: 1
+            initialDelaySeconds: 1
+            periodSeconds: 3
+            httpGet:
+              port: 8080
+              path: /health
+
+  selector:
+    matchLabels:
+      kubernetes.io/app: driving-journal-estimate-server
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: driving-journal-estimate-server-svc
+spec:
+  selector:
+    kubernetes.io/app: driving-journal-estimate-server
+  ports:
+    - targetPort: web
+      port: 8080
+
+---
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: driving-journal-estimate-server
+  annotations:
+    cert-manager.io/cluster-issuer: localhost
+spec:
+  tls:
+    - hosts:
+        - driving.kateops.com
+      secretName: driving.kateops.com-tls
+  ingressClassName: localhost
+  rules:
+    - host: driving.kateops.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: driving-journal-estimate-server-svc
+                port:
+                  number: 8080
+            pathType: Prefix
+            path: /

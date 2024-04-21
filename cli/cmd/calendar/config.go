@@ -36,7 +36,7 @@ var ConfigCmd = &cobra.Command{
 		month.Calculate(config.Total)
 		month.Print()
 		if out {
-			month.WriteOut()
+			month.WriteOut("output.txt")
 		}
 		return err
 	},

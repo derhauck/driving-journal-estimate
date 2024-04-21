@@ -14,18 +14,18 @@ type Day struct {
 }
 
 type Month struct {
-	Days   []*day.Config
-	Total  float32
+	Days   []*day.Config `json:"days"`
+	Total  float64       `json:"total"`
 	Logger logger.Inf
 }
 
-func (m *Month) RandomDays(count int) {
+func (m *Month) RandomDays(count uint) {
 	m.Days = day.NewRandomDays(count)
 }
 
-func (m *Month) Calculate(total float32) {
-	var newTotal float32 = 0
-	var totalDailyMultiplier float32 = 0
+func (m *Month) Calculate(total float64) {
+	var newTotal float64 = 0
+	var totalDailyMultiplier float64 = 0
 	for _, d := range m.Days {
 		totalDailyMultiplier += d.GetLesson().GetTotal()
 	}
@@ -38,7 +38,7 @@ func (m *Month) Calculate(total float32) {
 	m.Total = newTotal
 }
 
-func (m *Month) CalculateWithinRange(total float32, min float32, max float32) {
+func (m *Month) CalculateWithinRange(total float64, min float64, max float64) {
 	m.Calculate(total)
 	for _, d := range m.Days {
 		if d.GetTotal() < min {
@@ -68,9 +68,9 @@ func (m *Month) Print() {
 	m.Logger.Logf("Total\tKM: %f", m.Total)
 }
 
-func (m *Month) WriteOut() {
+func (m *Month) WriteOut(fileName string) {
 	path, err := os.Getwd()
-	file, err := os.Create(path + "/output.txt")
+	file, err := os.Create(path + "/" + fileName)
 	if err != nil {
 		m.Logger.Error(err)
 		return

@@ -14,7 +14,7 @@ func TestNewLessonType(t *testing.T) {
 		l := &LessonType{
 			Multiplier: 0,
 		}
-		var city float32 = 0.44
+		var city float64 = 0.44
 		err := l.ModMultiplier(city)
 		if err != nil {
 			t.Error(err)

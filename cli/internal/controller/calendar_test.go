@@ -14,7 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewMonth(total float32) *calendar.Month {
+func NewMonth(total float64) *calendar.Month {
 	return &calendar.Month{
 		make([]*day.Config, 0),
 		total,
@@ -77,7 +77,7 @@ func TestRandomController_Random(t *testing.T) {
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
+				message: `{"days":[{"`,
 				code:    http.StatusOK,
 			},
 		},
@@ -132,7 +132,7 @@ func TestCalendarController_Configuration(t *testing.T) {
 		result result
 	}{
 		{
-			name: "success with default",
+			name: "success without total",
 			fields: fields{
 				Month: NewMonth(30000),
 			},
@@ -146,8 +146,8 @@ func TestCalendarController_Configuration(t *testing.T) {
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
-				code:    http.StatusOK,
+				message: "",
+				code:    http.StatusNoContent,
 			},
 		},
 		{
@@ -165,7 +165,7 @@ func TestCalendarController_Configuration(t *testing.T) {
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
+				message: `{"days":[{"`,
 				code:    http.StatusOK,
 			},
 		},
@@ -178,13 +178,13 @@ func TestCalendarController_Configuration(t *testing.T) {
 				req: func() *http.Request {
 					req, _ := http.NewRequest("POST", "/config", nil)
 					req.Header.Set("Content-Type", "application/json")
-					req.Body = io.NopCloser(strings.NewReader(`{"baseline":0.3,"days":[{"date":"first","count":1}]}`))
+					req.Body = io.NopCloser(strings.NewReader(`{"baseline":0.3,"total":100,"days":[{"date":"first","count":1}]}`))
 
 					return req
 				},
 			},
 			result: result{
-				message: `{"message":{"Days":[{"`,
+				message: `{"days":[{"`,
 				code:    http.StatusOK,
 			},
 		},

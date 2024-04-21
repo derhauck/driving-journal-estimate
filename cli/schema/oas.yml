@@ -1,0 +1,147 @@
+components:
+  schemas:
+    CalendarErrorResponse:
+      properties:
+        error:
+          type: string
+      type: object
+    Config:
+      properties:
+        Date:
+          type: string
+        Lesson:
+          $ref: '#/components/schemas/LessonType'
+        Total:
+          type: number
+      type: object
+    File:
+      additionalProperties: false
+      properties:
+
+        baseline:
+          type: number
+        days:
+          required: true
+          minItems: 1
+          maxItems: 10000
+          items:
+            properties:
+              count:
+                type: integer
+                minimum: 1
+                maximum: 100000
+                required: true
+              date:
+                type: string
+                required: true
+            type: object
+          type: array
+        total:
+          type: number
+          minimum: 1
+      type: object
+    FileConfigStruct:
+      properties:
+        count:
+          type: integer
+        date:
+          type: string
+      type: object
+    LessonType:
+      properties:
+        Count:
+          type: integer
+        Multiplier:
+          type: number
+      type: object
+    Month:
+      properties:
+        days:
+          items:
+            properties:
+              Date:
+                type: string
+              Lesson:
+                $ref: '#/components/schemas/LessonType'
+              Total:
+                type: number
+            type: object
+          type: array
+        total:
+          type: number
+      type: object
+info:
+  contact:
+    name: derhauck
+  description: API to use CLI features via REST
+  title: Driving Journal Estimate Server
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /config:
+    post:
+      description: ' Get values based on detailed configuration'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/File'
+        required: true
+      responses:
+        "204":
+          description: Empty Input
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Month'
+          description: Month JSON
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarErrorResponse'
+          description: error JSON
+      summary: Configuration
+  /random:
+    get:
+      description: ' Get random values'
+      parameters:
+      - description: total KM to distribute
+        in: query
+        name: total
+        required: true
+        schema:
+          description: total KM to distribute
+          format: float32
+          type: number
+          minimum: 1
+          maximum: 100000000
+      - description: days to consider for KM distribution
+        in: query
+        name: days
+        required: true
+        schema:
+          description: days to consider for KM distribution
+          format: int64
+          type: integer
+          minimum: 1
+          maximum: 10000
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Month'
+          description: Month JSON
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarErrorResponse'
+          description: error JSON
+      summary: Random
+servers:
+- description: ' Server-1'
+  url: https://driving.kateops.com
+

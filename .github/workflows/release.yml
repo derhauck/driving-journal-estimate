@@ -8,6 +8,7 @@ name: Create Release
 
 jobs:
   build:
+    permissions: write-all
     name: Create Release
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +28,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21.5'
+          go-version: '1.22'
       - name: Add version
         env:
           VERSION: ${{ github.ref_name }}
@@ -62,3 +63,10 @@ jobs:
           asset_path: ./mac-bin.tar.gz
           asset_name: mac-bin.tar.gz
           asset_content_type: application/x-tar
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: driving-journal-estimate
+          registry: ghcr.io
+          enableBuildKit: true
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
