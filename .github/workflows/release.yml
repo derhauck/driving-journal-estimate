@@ -67,6 +67,7 @@ jobs:
         with:
           image: driving-journal-estimate
           registry: ghcr.io
+          directory: cli
           enableBuildKit: true
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
