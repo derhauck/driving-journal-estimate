@@ -15,7 +15,7 @@ type Day struct {
 
 type Month struct {
 	Days   []*day.Config `json:"days"`
-	Total  float32       `json:"total"`
+	Total  float64       `json:"total"`
 	Logger logger.Inf
 }
 
@@ -23,9 +23,9 @@ func (m *Month) RandomDays(count uint) {
 	m.Days = day.NewRandomDays(count)
 }
 
-func (m *Month) Calculate(total float32) {
-	var newTotal float32 = 0
-	var totalDailyMultiplier float32 = 0
+func (m *Month) Calculate(total float64) {
+	var newTotal float64 = 0
+	var totalDailyMultiplier float64 = 0
 	for _, d := range m.Days {
 		totalDailyMultiplier += d.GetLesson().GetTotal()
 	}
@@ -38,7 +38,7 @@ func (m *Month) Calculate(total float32) {
 	m.Total = newTotal
 }
 
-func (m *Month) CalculateWithinRange(total float32, min float32, max float32) {
+func (m *Month) CalculateWithinRange(total float64, min float64, max float64) {
 	m.Calculate(total)
 	for _, d := range m.Days {
 		if d.GetTotal() < min {

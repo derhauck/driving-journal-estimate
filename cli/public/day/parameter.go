@@ -7,17 +7,17 @@ import (
 )
 
 type LessonType struct {
-	Multiplier float32
+	Multiplier float64
 	Count      int
 }
 
-func (l *LessonType) GetMultiplier() float32 { return l.Multiplier }
-func (l *LessonType) combined() float32 {
-	return l.Multiplier * float32(l.Count)
+func (l *LessonType) GetMultiplier() float64 { return l.Multiplier }
+func (l *LessonType) combined() float64 {
+	return l.Multiplier * float64(l.Count)
 }
 
-func (l *LessonType) GetTotal() float32 {
-	return l.Multiplier * float32(l.Count)
+func (l *LessonType) GetTotal() float64 {
+	return l.Multiplier * float64(l.Count)
 }
 
 func (l *LessonType) sanityCheck() bool {
@@ -27,7 +27,7 @@ func (l *LessonType) sanityCheck() bool {
 	return true
 }
 
-func (l *LessonType) ModMultiplier(percent float32) error {
+func (l *LessonType) ModMultiplier(percent float64) error {
 	old := l.Multiplier
 	if l.sanityCheck() == false {
 		l.Multiplier = old
@@ -49,7 +49,7 @@ type LessonTypeConfigurationParameter func(l *LessonType)
 type Config struct {
 	Date   string
 	Lesson *LessonType
-	Total  float32
+	Total  float64
 }
 
 func NewRandomConfig(date string) *Config {
@@ -58,7 +58,7 @@ func NewRandomConfig(date string) *Config {
 		Lesson: NewLessonType(),
 		Total:  0,
 	}
-	err := config.Lesson.ModMultiplier(rand.Float32())
+	err := config.Lesson.ModMultiplier(rand.Float64())
 	config.Lesson.Count = rand.Intn(5) + 1
 	if err != nil {
 		return nil
@@ -73,11 +73,11 @@ func NewRandomDays(count uint) []*Config {
 	}
 	return days
 }
-func (c *Config) GetTotal() float32 {
+func (c *Config) GetTotal() float64 {
 	return c.Total
 }
 
-func (c *Config) SetTotal(total float32) {
+func (c *Config) SetTotal(total float64) {
 	c.Total = total
 }
 
@@ -97,7 +97,7 @@ func (c *Config) Validate() error {
 	return nil
 }
 
-func (c *Config) Calculate(total float32) error {
+func (c *Config) Calculate(total float64) error {
 	old := c.GetTotal()
 	c.SetTotal(total * (c.GetLesson().GetMultiplier()))
 	if err := c.Validate(); err != nil {

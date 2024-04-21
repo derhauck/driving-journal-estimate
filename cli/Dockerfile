@@ -6,6 +6,7 @@ COPY factory/ /app/factory
 COPY internal/ /app/internal
 COPY public/ /app/public
 COPY main.go go.mod go.sum /app/
+COPY oas.yml /app/public/openapi.yml
 #COPY . /app/
 ENV GOMODCACHE /app/.pkg
 ENV GOCACHE /app/.cache
@@ -18,4 +19,6 @@ FROM alpine:3.19
 
 COPY --from=builder /app/driving-journal-estimate /usr/bin/dje
 EXPOSE 8080
+COPY schema/oas.yml /app/schema/openapi.yml
+WORKDIR /app
 CMD dje calendar server

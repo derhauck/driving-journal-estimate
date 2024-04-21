@@ -1,6 +1,8 @@
 package calendar
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 )
@@ -17,6 +19,9 @@ var ServerCmd = &cobra.Command{
 			gin.Recovery(),
 		)
 		initRoutes(router)
+
+		router.StaticFS("/assets", http.Dir("./schema"))
+
 		err := router.Run(":8080")
 		if err != nil {
 			return err

@@ -21,9 +21,13 @@ create_open_api_schema:
 	# https://github.com/parvez3019/go-swagger3
 	docker run --user $$(id -u):$$(id -g)  -t --rm -v ${PWD}:/app -w /app parvez3019/go-swagger3:latest --module-path . --output oas.json --schema-without-pkg --generate-yaml true
 
-.PHONY: schema_test
-schema_test:
-	docker run  --user $$(id -u):$$(id -g) -v ${PWD}:/app -w /app schemathesis/schemathesis:stable run --checks all oas.yml --workers 8 --base-url $(BASE_URL) --cassette-path cas.yaml
+.PHONY: schema_test_local
+schema_test_local:
+	docker run  --user $$(id -u):$$(id -g) -v ${PWD}:/app -w /app schemathesis/schemathesis:stable run --checks all schema/oas.yml --base-url $(BASE_URL) --cassette-path cas.yaml
+
+.PHONY: schema_test_cluster
+schema_test_cluster:
+	docker run  --user $$(id -u):$$(id -g) -v ${PWD}:/app -w /app schemathesis/schemathesis:stable run --checks all  https://driving.kateops.com/assets/openapi.yml
 
 .PHONY: run_tests
-run_tests: create_open_api_schema schema_test
+run_tests: schema_test_local

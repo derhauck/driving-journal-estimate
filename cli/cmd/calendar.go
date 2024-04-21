@@ -9,7 +9,7 @@ import (
 var CalendarCmd = &cobra.Command{
 	Use:   "calendar",
 	Short: "Estimate journal based on days.",
-	Long:  `Estimate journal based on days. Either randomly or with detailed config`,
+	Long:  `Estimate journal based on days. Either randomly or with detailed config.`,
 }
 
 func init() {

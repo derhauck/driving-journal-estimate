@@ -11,25 +11,34 @@ components:
           type: string
         Lesson:
           $ref: '#/components/schemas/LessonType'
-          type: object
         Total:
           type: number
       type: object
     File:
+      additionalProperties: false
       properties:
+
         baseline:
           type: number
         days:
+          required: true
+          minItems: 1
+          maxItems: 10000
           items:
             properties:
               count:
                 type: integer
+                minimum: 1
+                maximum: 100000
+                required: true
               date:
                 type: string
+                required: true
             type: object
           type: array
         total:
           type: number
+          minimum: 1
       type: object
     FileConfigStruct:
       properties:
@@ -38,7 +47,6 @@ components:
         date:
           type: string
       type: object
-    Inf: {}
     LessonType:
       properties:
         Count:
@@ -48,8 +56,6 @@ components:
       type: object
     Month:
       properties:
-        Logger:
-          $ref: '#/components/schemas/Inf'
         days:
           items:
             properties:
@@ -57,26 +63,6 @@ components:
                 type: string
               Lesson:
                 $ref: '#/components/schemas/LessonType'
-                type: object
-              Total:
-                type: number
-            type: object
-          type: array
-        total:
-          type: number
-      type: object
-    calendar.Month:
-      properties:
-        Logger:
-          $ref: '#/components/schemas/Inf'
-        days:
-          items:
-            properties:
-              Date:
-                type: string
-              Lesson:
-                $ref: '#/components/schemas/LessonType'
-                type: object
               Total:
                 type: number
             type: object
@@ -102,6 +88,8 @@ paths:
               $ref: '#/components/schemas/File'
         required: true
       responses:
+        "204":
+          description: Empty Input
         "200":
           content:
             application/json:
@@ -128,6 +116,7 @@ paths:
           format: float32
           type: number
           minimum: 1
+          maximum: 100000000
       - description: days to consider for KM distribution
         in: query
         name: days
@@ -137,6 +126,7 @@ paths:
           format: int64
           type: integer
           minimum: 1
+          maximum: 10000
       responses:
         "200":
           content:
@@ -154,3 +144,4 @@ paths:
 servers:
 - description: ' Server-1'
   url: https://driving.kateops.com
+
