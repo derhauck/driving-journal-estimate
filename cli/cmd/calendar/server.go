@@ -2,10 +2,13 @@ package calendar
 
 import (
 	"context"
+	"errors"
+	"log"
 	"net/http"
 	"os/signal"
 	"syscall"
 
+	"github.com/Cyprinus12138/otelgin"
 	"github.com/gin-contrib/graceful"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
@@ -20,6 +23,7 @@ var ServerCmd = &cobra.Command{
 		ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 		defer stop()
 		router, err := graceful.New(gin.New())
+		router.Use(otelgin.Middleware("driving-journal-estimate-server"))
 		if err != nil {
 			return err
 		}
@@ -30,8 +34,8 @@ var ServerCmd = &cobra.Command{
 		initRoutes(router)
 		defer router.Close()
 		router.StaticFS("/assets", http.Dir("./schema"))
-		if err := router.RunWithContext(ctx); err != nil && err != context.Canceled {
-			panic(err)
+		if err := router.RunWithContext(ctx); err != nil && !errors.Is(err, context.Canceled) {
+			log.Printf("Error: %s", err)
 		}
 		return nil
 	},
