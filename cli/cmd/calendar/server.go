@@ -23,10 +23,10 @@ var ServerCmd = &cobra.Command{
 		ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 		defer stop()
 		router, err := graceful.New(gin.New())
-		router.Use(otelgin.Middleware("driving-journal-estimate-server"))
 		if err != nil {
 			return err
 		}
+		router.Use(otelgin.Middleware("driving-journal-estimate-server"))
 		router.Use(
 			gin.LoggerWithWriter(gin.DefaultWriter, "/health"),
 			gin.Recovery(),
